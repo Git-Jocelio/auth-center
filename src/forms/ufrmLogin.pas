@@ -8,7 +8,7 @@ uses
   Vcl.Imaging.pngimage, FireDAC.Stan.Intf, FireDAC.Stan.Option,
   FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf,
   FireDAC.DApt.Intf, Data.DB, FireDAC.Comp.DataSet, FireDAC.Comp.Client, uDm,
-  Vcl.Grids, Vcl.DBGrids, uSession;
+  Vcl.Grids, Vcl.DBGrids, uSession, ufrmMain;
 
 type
   TfrmLogin = class(TForm)
@@ -50,8 +50,26 @@ procedure TfrmLogin.btn_acessarClick(Sender: TObject);
 begin
   try
 
-    Dm.Login(edt_email.text, edt_senha.text);
-    ShowMessage('Token :' + TSession.Token + sLineBreak + 'User :' + TSession.user)
+    if Dm.Login(edt_email.text, edt_senha.text) then
+    begin
+      ShowMessage('Token :' + TSession.Token + sLineBreak + 'User :' + TSession.user);
+
+      frmLogin.hide;
+
+      try
+        if frmMain = nil then
+          frmMain := TfrmMain.Create(self) ;
+
+        frmMain.lbl_nome.Caption := 'User : ' + TSession.User;
+
+        frmMain.ShowModal;
+      finally
+        freeandnil( frmMain );
+      end;
+
+
+    end;
+
   except
      on e: exception do
        ShowMessage(e.Message);

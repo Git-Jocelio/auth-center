@@ -16,7 +16,7 @@ type
   private
     { Private declarations }
   public
-    procedure Login(email, senha: string);
+    function Login(email, senha: string): boolean;
   end;
 
 var
@@ -28,13 +28,14 @@ implementation
 
 {$R *.dfm}
 
-procedure TDm.Login(email, senha: string);
+function TDm.Login(email, senha: string): boolean;
 var
   resp : IResponse;
   json : TJSONObject;
 begin
 
   try
+    result := false;
     // criar um objeto json com os dados do cliente
     json := TJSONObject.Create;
 
@@ -58,6 +59,9 @@ begin
       TSession.Token := json.GetValue<string>('token');
 
       TSession.User := json.GetValue<string>('user');
+
+      result := true;
+
     end;
 
     //erro autenticação
