@@ -1,0 +1,38 @@
+# Delphi
+*.dcu
+*.ddp
+*.dsk
+*.dsm
+*.identcache
+*.local
+*.map
+*.projdata
+*.tvsconfig
+*.stat
+
+# Build folders
+Win32/
+Win64/
+Debug/
+Release/
+__history/
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary
+*.~*
+*.tmp
+
+# Logs
+logs/
+
+# Backup
+*.bak
+
+# Executables
+*.exe
+
+# Configuração sensível
+config.ini
