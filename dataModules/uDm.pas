@@ -13,10 +13,20 @@ uses
 
 type
   TDm = class(TDataModule)
+    MemTable: TFDMemTable;
+    MemTabletype: TStringField;
+    MemTablestatus: TStringField;
+    MemTableuser: TStringField;
+    MemTableip: TStringField;
+    MemTableldap_code: TStringField;
+    MemTableldap_message: TStringField;
+    MemTabledate: TStringField;
   private
     { Private declarations }
   public
     function Login(email, senha: string): boolean;
+    procedure GetLogs(MemTable: TFDMemTable; const ADate: string);
+
   end;
 
 var
@@ -73,5 +83,26 @@ begin
   end;
 end;
 
+
+procedure TDm.GetLogs(MemTable: TFDMemTable; const ADate: string);
+var
+  Resp : IResponse;
+begin
+  Resp := TRequest.New
+         .BaseURL('http://192.168.100.40:9000')
+         .Resource('/logs')
+         .AddParam('date', ADate)
+         .AddHeader('Authorization','Bearer ' + TSession.Token)
+         .Accept('application/json')
+         .Adapters(TDataSetSerializeAdapter.New(MemTable))
+         .Get;
+
+  if Resp.StatusCode <> 200 then
+  begin
+    raise Exception.Create(Resp.Content);
+  end;
+
+
+end;
 
 end.

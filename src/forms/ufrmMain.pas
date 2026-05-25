@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  Vcl.ComCtrls, Vcl.Imaging.pngimage, Vcl.Grids;
+  Vcl.ComCtrls, Vcl.Imaging.pngimage, Vcl.Grids, Data.DB, Vcl.DBGrids, uDm;
 
 type
   TfrmMain = class(TForm)
@@ -36,8 +36,8 @@ type
     Edit2: TEdit;
     Panel1: TPanel;
     Label6: TLabel;
-    DateTimePicker1: TDateTimePicker;
-    SpeedButton1: TSpeedButton;
+    dtp_data: TDateTimePicker;
+    btn_buscar: TSpeedButton;
     BitBtn2: TBitBtn;
     BitBtn3: TBitBtn;
     GroupBox3: TGroupBox;
@@ -45,6 +45,9 @@ type
     Edit5: TEdit;
     Label8: TLabel;
     Edit6: TEdit;
+    DBGrid1: TDBGrid;
+    DataSource: TDataSource;
+    procedure btn_buscarClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -57,5 +60,10 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TfrmMain.btn_buscarClick(Sender: TObject);
+begin
+  dm.GetLogs(Dm.MemTable, FormatDateTime( 'yyyy-mm-dd', dtp_data.Date ));
+end;
 
 end.

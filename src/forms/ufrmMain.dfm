@@ -11,17 +11,16 @@ object frmMain: TfrmMain
   Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
+  Position = poDesktopCenter
   TextHeight = 15
   object PageControl1: TPageControl
     Left = 0
     Top = 50
     Width = 906
     Height = 504
-    ActivePage = tbs_users
+    ActivePage = tbs_logs
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 890
-    ExplicitHeight = 465
     object tbs_users: TTabSheet
       Caption = 'Usu'#225'rio'
       object pnl_user_topo: TPanel
@@ -31,7 +30,6 @@ object frmMain: TfrmMain
         Height = 57
         Align = alTop
         TabOrder = 0
-        ExplicitWidth = 882
         object BitBtn1: TBitBtn
           Left = 16
           Top = 13
@@ -48,17 +46,18 @@ object frmMain: TfrmMain
         Height = 417
         Align = alClient
         TabOrder = 1
-        ExplicitWidth = 882
-        ExplicitHeight = 378
         object StringGrid1: TStringGrid
           Left = 1
           Top = 1
           Width = 896
           Height = 415
           Align = alClient
+          ColCount = 2
+          RowCount = 2
           TabOrder = 0
-          ExplicitWidth = 880
-          ExplicitHeight = 376
+          ColWidths = (
+            64
+            779)
         end
       end
     end
@@ -79,10 +78,6 @@ object frmMain: TfrmMain
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitLeft = 392
-        ExplicitTop = 224
-        ExplicitWidth = 185
-        ExplicitHeight = 41
         object GroupBox1: TGroupBox
           Left = 40
           Top = 64
@@ -219,7 +214,6 @@ object frmMain: TfrmMain
         Height = 57
         Align = alTop
         TabOrder = 0
-        ExplicitTop = 8
         object Label6: TLabel
           Left = 24
           Top = 16
@@ -227,14 +221,15 @@ object frmMain: TfrmMain
           Height = 15
           Caption = 'Data'
         end
-        object SpeedButton1: TSpeedButton
+        object btn_buscar: TSpeedButton
           Left = 201
           Top = 12
           Width = 86
           Height = 24
           Caption = 'Buscar'
+          OnClick = btn_buscarClick
         end
-        object DateTimePicker1: TDateTimePicker
+        object dtp_data: TDateTimePicker
           Left = 58
           Top = 13
           Width = 137
@@ -243,6 +238,20 @@ object frmMain: TfrmMain
           Time = 0.603955300925008500
           TabOrder = 0
         end
+      end
+      object DBGrid1: TDBGrid
+        Left = 0
+        Top = 57
+        Width = 898
+        Height = 417
+        Align = alClient
+        DataSource = DataSource
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -12
+        TitleFont.Name = 'Segoe UI'
+        TitleFont.Style = []
       end
     end
   end
@@ -256,7 +265,6 @@ object frmMain: TfrmMain
     Color = 15458266
     ParentBackground = False
     TabOrder = 1
-    ExplicitWidth = 890
     object Label1: TLabel
       AlignWithMargins = True
       Left = 0
@@ -276,8 +284,8 @@ object frmMain: TfrmMain
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
-      ExplicitTop = 19
-      ExplicitHeight = 28
+      ExplicitWidth = 177
+      ExplicitHeight = 47
     end
     object pnUsuario: TPanel
       Left = 728
@@ -289,7 +297,6 @@ object frmMain: TfrmMain
       Color = 15458266
       ParentBackground = False
       TabOrder = 0
-      ExplicitLeft = 712
       object lbl_nome: TLabel
         AlignWithMargins = True
         Left = 10
@@ -308,9 +315,7 @@ object frmMain: TfrmMain
         Font.Style = [fsBold]
         ParentFont = False
         Layout = tlCenter
-        ExplicitLeft = 48
-        ExplicitTop = 2
-        ExplicitWidth = 256
+        ExplicitWidth = 136
       end
     end
     object pnl_img: TPanel
@@ -321,7 +326,6 @@ object frmMain: TfrmMain
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 1
-      ExplicitLeft = 656
       object imgUsuario: TImage
         AlignWithMargins = True
         Left = 0
@@ -374,5 +378,10 @@ object frmMain: TfrmMain
         ExplicitHeight = 44
       end
     end
+  end
+  object DataSource: TDataSource
+    DataSet = Dm.MemTable
+    Left = 292
+    Top = 308
   end
 end
