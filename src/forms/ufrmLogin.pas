@@ -52,20 +52,16 @@ begin
 
     if Dm.Login(edt_email.text, edt_senha.text) then
     begin
-      ShowMessage('Token :' + TSession.Token + sLineBreak + 'User :' + TSession.user);
+      //ShowMessage('Token :' + TSession.Token + sLineBreak + 'User :' + TSession.user);
 
-      frmLogin.hide;
+      Hide;
 
-      try
-        if frmMain = nil then
-          frmMain := TfrmMain.Create(self) ;
+      if frmMain = nil then
+        frmMain := TfrmMain.Create(nil) ;
 
-        frmMain.lbl_nome.Caption := 'User : ' + TSession.User;
+      frmMain.lbl_nome.Caption := 'User : ' + TSession.User;
 
-        frmMain.ShowModal;
-      finally
-        freeandnil( frmMain );
-      end;
+      frmMain.Show;
 
 
     end;

@@ -5,7 +5,10 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls,
-  Vcl.ComCtrls, Vcl.Imaging.pngimage, Vcl.Grids, Data.DB, Vcl.DBGrids, uDm;
+  Vcl.ComCtrls, Vcl.Imaging.pngimage, Vcl.Grids, Data.DB, Vcl.DBGrids, uDm,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TfrmMain = class(TForm)
@@ -47,7 +50,17 @@ type
     Edit6: TEdit;
     DBGrid1: TDBGrid;
     DataSource: TDataSource;
+    MemTable: TFDMemTable;
+    MemTabletype: TStringField;
+    MemTablestatus: TStringField;
+    MemTableip: TStringField;
+    MemTableldap_code: TStringField;
+    MemTableldap_message: TStringField;
+    MemTabledate: TStringField;
+    MemTableusername: TStringField;
+    Label9: TLabel;
     procedure btn_buscarClick(Sender: TObject);
+    procedure Label9Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -63,7 +76,12 @@ implementation
 
 procedure TfrmMain.btn_buscarClick(Sender: TObject);
 begin
-  dm.GetLogs(Dm.MemTable, FormatDateTime( 'yyyy-mm-dd', dtp_data.Date ));
+  dm.GetLogs(MemTable, FormatDateTime( 'yyyy-mm-dd', dtp_data.Date ));
+end;
+
+procedure TfrmMain.Label9Click(Sender: TObject);
+begin
+  Application.Terminate;
 end;
 
 end.

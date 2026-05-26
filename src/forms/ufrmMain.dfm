@@ -252,6 +252,42 @@ object frmMain: TfrmMain
         TitleFont.Height = -12
         TitleFont.Name = 'Segoe UI'
         TitleFont.Style = []
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'type'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'status'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'username'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ip'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ldap_code'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ldap_message'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'date'
+            Visible = True
+          end>
       end
     end
   end
@@ -317,6 +353,27 @@ object frmMain: TfrmMain
         Layout = tlCenter
         ExplicitWidth = 136
       end
+      object Label9: TLabel
+        AlignWithMargins = True
+        Left = 10
+        Top = 30
+        Width = 168
+        Height = 17
+        Margins.Left = 10
+        Margins.Top = 5
+        Margins.Right = 0
+        Align = alTop
+        Caption = 'Logout'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = 6579300
+        Font.Height = -13
+        Font.Name = 'Segoe UI Semibold'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        OnClick = Label9Click
+        ExplicitWidth = 43
+      end
     end
     object pnl_img: TPanel
       Left = 672
@@ -380,8 +437,85 @@ object frmMain: TfrmMain
     end
   end
   object DataSource: TDataSource
-    DataSet = Dm.MemTable
-    Left = 292
+    DataSet = MemTable
+    Left = 284
     Top = 308
+  end
+  object MemTable: TFDMemTable
+    Active = True
+    FieldDefs = <
+      item
+        Name = 'type'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'status'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'username'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'ip'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'ldap_code'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'ldap_message'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'date'
+        DataType = ftString
+        Size = 20
+      end>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    StoreDefs = True
+    Left = 376
+    Top = 312
+    object MemTabletype: TStringField
+      DisplayWidth = 20
+      FieldName = 'type'
+    end
+    object MemTablestatus: TStringField
+      DisplayWidth = 20
+      FieldName = 'status'
+    end
+    object MemTableusername: TStringField
+      FieldName = 'username'
+    end
+    object MemTableip: TStringField
+      DisplayWidth = 20
+      FieldName = 'ip'
+    end
+    object MemTableldap_code: TStringField
+      DisplayWidth = 20
+      FieldName = 'ldap_code'
+    end
+    object MemTableldap_message: TStringField
+      DisplayWidth = 20
+      FieldName = 'ldap_message'
+    end
+    object MemTabledate: TStringField
+      DisplayWidth = 20
+      FieldName = 'date'
+    end
   end
 end

@@ -9,18 +9,10 @@ uses
   DataSet.Serialize.Config,
   RestRequest4D,
   DataSet.Serialize.Adapter.RESTRequest4D,
-  System.JSON, uSession;
+  System.JSON, uSession, dialogs;
 
 type
   TDm = class(TDataModule)
-    MemTable: TFDMemTable;
-    MemTabletype: TStringField;
-    MemTablestatus: TStringField;
-    MemTableuser: TStringField;
-    MemTableip: TStringField;
-    MemTableldap_code: TStringField;
-    MemTableldap_message: TStringField;
-    MemTabledate: TStringField;
   private
     { Private declarations }
   public
@@ -88,6 +80,7 @@ procedure TDm.GetLogs(MemTable: TFDMemTable; const ADate: string);
 var
   Resp : IResponse;
 begin
+
   Resp := TRequest.New
          .BaseURL('http://192.168.100.40:9000')
          .Resource('/logs')
@@ -97,9 +90,23 @@ begin
          .Adapters(TDataSetSerializeAdapter.New(MemTable))
          .Get;
 
+{
   if Resp.StatusCode <> 200 then
   begin
     raise Exception.Create(Resp.Content);
+  end else showmessage('200')
+
+ ShowMessage(
+
+  'STATUS: ' + Resp.StatusCode.ToString + sLineBreak +
+  'CONTENT:' + sLineBreak + sLineBreak +
+  Resp.Content
+
+);
+}
+  if Resp.Content.trim.isEmpty then
+  begin
+     raise Exception.Create('Nenhum Log encontrado');
   end;
 
 

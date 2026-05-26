@@ -2047,8 +2047,6 @@ object frmLogin: TfrmLogin
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
-      ExplicitLeft = 0
-      ExplicitTop = 0
       ExplicitWidth = 277
     end
     object Label2: TLabel
@@ -2069,7 +2067,6 @@ object frmLogin: TfrmLogin
       Font.Name = 'Segoe UI'
       Font.Style = []
       ParentFont = False
-      ExplicitTop = 62
       ExplicitWidth = 136
     end
     object Label3: TLabel
