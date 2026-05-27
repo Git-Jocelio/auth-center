@@ -18,12 +18,11 @@ type
     tbs_logs: TTabSheet;
     pnl_user_topo: TPanel;
     pnl_users_main: TPanel;
-    BitBtn1: TBitBtn;
+    btn_usuarios: TBitBtn;
     pnNavBar: TPanel;
     pnUsuario: TPanel;
     lbl_nome: TLabel;
     Label1: TLabel;
-    StringGrid1: TStringGrid;
     pnl_img: TPanel;
     imgUsuario: TImage;
     pnl_conf_main: TPanel;
@@ -40,7 +39,7 @@ type
     Panel1: TPanel;
     Label6: TLabel;
     dtp_data: TDateTimePicker;
-    btn_buscar: TSpeedButton;
+    btn_logs: TSpeedButton;
     BitBtn2: TBitBtn;
     BitBtn3: TBitBtn;
     GroupBox3: TGroupBox;
@@ -49,18 +48,25 @@ type
     Label8: TLabel;
     Edit6: TEdit;
     DBGrid1: TDBGrid;
-    DataSource: TDataSource;
-    MemTable: TFDMemTable;
-    MemTabletype: TStringField;
-    MemTablestatus: TStringField;
-    MemTableip: TStringField;
-    MemTableldap_code: TStringField;
-    MemTableldap_message: TStringField;
-    MemTabledate: TStringField;
-    MemTableusername: TStringField;
+    ds_logs: TDataSource;
+    mtb_logs: TFDMemTable;
+    mtb_logstype: TStringField;
+    mtb_logsstatus: TStringField;
+    mtb_logsip: TStringField;
+    mtb_logsldap_code: TStringField;
+    mtb_logsldap_message: TStringField;
+    mtb_logsdate: TStringField;
+    mtb_logsusername: TStringField;
     Label9: TLabel;
-    procedure btn_buscarClick(Sender: TObject);
+    mtb_usuarios: TFDMemTable;
+    mtb_usuariosname: TStringField;
+    mtb_usuarioslogin: TStringField;
+    mtb_usuariosemail: TStringField;
+    ds_usuarios: TDataSource;
+    DBGrid2: TDBGrid;
+    procedure btn_logsClick(Sender: TObject);
     procedure Label9Click(Sender: TObject);
+    procedure btn_usuariosClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -74,9 +80,14 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrmMain.btn_buscarClick(Sender: TObject);
+procedure TfrmMain.btn_usuariosClick(Sender: TObject);
 begin
-  dm.GetLogs(MemTable, FormatDateTime( 'yyyy-mm-dd', dtp_data.Date ));
+  dm.GetUsers(mtb_usuarios);
+end;
+
+procedure TfrmMain.btn_logsClick(Sender: TObject);
+begin
+  dm.GetLogs(mtb_logs, FormatDateTime( 'yyyy-mm-dd', dtp_data.Date ));
 end;
 
 procedure TfrmMain.Label9Click(Sender: TObject);

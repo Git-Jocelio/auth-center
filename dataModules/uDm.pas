@@ -18,7 +18,7 @@ type
   public
     function Login(email, senha: string): boolean;
     procedure GetLogs(MemTable: TFDMemTable; const ADate: string);
-
+    procedure GetUsers(MemTable: TFDMemTable);
   end;
 
 var
@@ -62,6 +62,8 @@ begin
 
       TSession.User := json.GetValue<string>('user');
 
+      TSession.Password := senha;
+
       result := true;
 
     end;
@@ -75,11 +77,14 @@ begin
   end;
 end;
 
-
 procedure TDm.GetLogs(MemTable: TFDMemTable; const ADate: string);
 var
   Resp : IResponse;
 begin
+
+  MemTable.EmptyDataSet;
+
+ShowMessage('Bearer ' + TSession.Token);
 
   Resp := TRequest.New
          .BaseURL('http://192.168.100.40:9000')
@@ -89,27 +94,51 @@ begin
          .Accept('application/json')
          .Adapters(TDataSetSerializeAdapter.New(MemTable))
          .Get;
+////
+ ShowMessage(Resp.Content);
+ ShowMessage(IntToStr(MemTable.RecordCount));
+ if MemTable.RecordCount > 0 then
+begin
 
-{
-  if Resp.StatusCode <> 200 then
-  begin
-    raise Exception.Create(Resp.Content);
-  end else showmessage('200')
+  MemTable.First;
 
- ShowMessage(
+  ShowMessage(
+    MemTable.FieldByName('username').AsString
+  );
 
-  'STATUS: ' + Resp.StatusCode.ToString + sLineBreak +
-  'CONTENT:' + sLineBreak + sLineBreak +
-  Resp.Content
+end;
 
-);
-}
+///
+
   if Resp.Content.trim.isEmpty then
   begin
      raise Exception.Create('Nenhum Log encontrado');
   end;
 
+end;
+
+procedure TDm.GetUsers(MemTable: TFDMemTable);
+var
+  Resp : IResponse;
+begin
+
+  Resp := TRequest.New
+         .BaseURL('http://192.168.100.40:9000')
+         .Resource('/users')
+         .AddHeader('Authorization','Bearer ' + TSession.Token)
+         .AddHeader('x-login', TSession.User)
+         .AddHeader('x-password', TSession.Password)
+         .Accept('application/json')
+         .Adapters(TDataSetSerializeAdapter.New(MemTable))
+         .Get;
+
+
+  if Resp.Content.trim = '[]' then
+  begin
+     raise Exception.Create('Nenhum Usuário encontrado');
+  end;
 
 end;
+
 
 end.

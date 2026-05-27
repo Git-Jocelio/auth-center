@@ -4,7 +4,7 @@ object frmMain: TfrmMain
   BorderStyle = bsNone
   Caption = 'Principal'
   ClientHeight = 554
-  ClientWidth = 906
+  ClientWidth = 998
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -16,7 +16,7 @@ object frmMain: TfrmMain
   object PageControl1: TPageControl
     Left = 0
     Top = 50
-    Width = 906
+    Width = 998
     Height = 504
     ActivePage = tbs_logs
     Align = alClient
@@ -26,38 +26,56 @@ object frmMain: TfrmMain
       object pnl_user_topo: TPanel
         Left = 0
         Top = 0
-        Width = 898
+        Width = 990
         Height = 57
         Align = alTop
         TabOrder = 0
-        object BitBtn1: TBitBtn
+        object btn_usuarios: TBitBtn
           Left = 16
           Top = 13
           Width = 265
           Height = 25
           Caption = 'Listar Usu'#225'rios no Active Directory'
           TabOrder = 0
+          OnClick = btn_usuariosClick
         end
       end
       object pnl_users_main: TPanel
         Left = 0
         Top = 57
-        Width = 898
+        Width = 990
         Height = 417
         Align = alClient
         TabOrder = 1
-        object StringGrid1: TStringGrid
+        object DBGrid2: TDBGrid
           Left = 1
           Top = 1
-          Width = 896
+          Width = 988
           Height = 415
           Align = alClient
-          ColCount = 2
-          RowCount = 2
+          DataSource = ds_usuarios
           TabOrder = 0
-          ColWidths = (
-            64
-            779)
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -12
+          TitleFont.Name = 'Segoe UI'
+          TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'name'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'login'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'email'
+              Visible = True
+            end>
         end
       end
     end
@@ -73,7 +91,7 @@ object frmMain: TfrmMain
       object pnl_conf_main: TPanel
         Left = 0
         Top = 0
-        Width = 898
+        Width = 990
         Height = 474
         Align = alClient
         BevelOuter = bvNone
@@ -210,7 +228,7 @@ object frmMain: TfrmMain
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 898
+        Width = 990
         Height = 57
         Align = alTop
         TabOrder = 0
@@ -221,13 +239,13 @@ object frmMain: TfrmMain
           Height = 15
           Caption = 'Data'
         end
-        object btn_buscar: TSpeedButton
+        object btn_logs: TSpeedButton
           Left = 201
           Top = 12
           Width = 86
           Height = 24
           Caption = 'Buscar'
-          OnClick = btn_buscarClick
+          OnClick = btn_logsClick
         end
         object dtp_data: TDateTimePicker
           Left = 58
@@ -242,10 +260,11 @@ object frmMain: TfrmMain
       object DBGrid1: TDBGrid
         Left = 0
         Top = 57
-        Width = 898
+        Width = 990
         Height = 417
         Align = alClient
-        DataSource = DataSource
+        DataSource = ds_logs
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -281,6 +300,7 @@ object frmMain: TfrmMain
           item
             Expanded = False
             FieldName = 'ldap_message'
+            Width = 193
             Visible = True
           end
           item
@@ -294,7 +314,7 @@ object frmMain: TfrmMain
   object pnNavBar: TPanel
     Left = 0
     Top = 0
-    Width = 906
+    Width = 998
     Height = 50
     Align = alTop
     BevelOuter = bvNone
@@ -305,7 +325,7 @@ object frmMain: TfrmMain
       AlignWithMargins = True
       Left = 0
       Top = 0
-      Width = 652
+      Width = 744
       Height = 50
       Margins.Left = 0
       Margins.Top = 0
@@ -324,7 +344,7 @@ object frmMain: TfrmMain
       ExplicitHeight = 47
     end
     object pnUsuario: TPanel
-      Left = 728
+      Left = 820
       Top = 0
       Width = 178
       Height = 50
@@ -376,7 +396,7 @@ object frmMain: TfrmMain
       end
     end
     object pnl_img: TPanel
-      Left = 672
+      Left = 764
       Top = 0
       Width = 56
       Height = 50
@@ -436,12 +456,13 @@ object frmMain: TfrmMain
       end
     end
   end
-  object DataSource: TDataSource
-    DataSet = MemTable
-    Left = 284
-    Top = 308
+  object ds_logs: TDataSource
+    AutoEdit = False
+    DataSet = mtb_logs
+    Left = 236
+    Top = 300
   end
-  object MemTable: TFDMemTable
+  object mtb_logs: TFDMemTable
     Active = True
     FieldDefs = <
       item
@@ -488,34 +509,63 @@ object frmMain: TfrmMain
     UpdateOptions.CheckRequired = False
     UpdateOptions.AutoCommitUpdates = True
     StoreDefs = True
-    Left = 376
-    Top = 312
-    object MemTabletype: TStringField
+    Left = 240
+    Top = 368
+    object mtb_logstype: TStringField
       DisplayWidth = 20
       FieldName = 'type'
     end
-    object MemTablestatus: TStringField
+    object mtb_logsstatus: TStringField
       DisplayWidth = 20
       FieldName = 'status'
     end
-    object MemTableusername: TStringField
+    object mtb_logsusername: TStringField
       FieldName = 'username'
     end
-    object MemTableip: TStringField
+    object mtb_logsip: TStringField
       DisplayWidth = 20
       FieldName = 'ip'
     end
-    object MemTableldap_code: TStringField
+    object mtb_logsldap_code: TStringField
       DisplayWidth = 20
       FieldName = 'ldap_code'
     end
-    object MemTableldap_message: TStringField
+    object mtb_logsldap_message: TStringField
       DisplayWidth = 20
       FieldName = 'ldap_message'
     end
-    object MemTabledate: TStringField
+    object mtb_logsdate: TStringField
       DisplayWidth = 20
       FieldName = 'date'
     end
+  end
+  object mtb_usuarios: TFDMemTable
+    Active = True
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired, uvAutoCommitUpdates]
+    UpdateOptions.CheckRequired = False
+    UpdateOptions.AutoCommitUpdates = True
+    Left = 36
+    Top = 341
+    object mtb_usuariosname: TStringField
+      DisplayWidth = 28
+      FieldName = 'name'
+    end
+    object mtb_usuarioslogin: TStringField
+      DisplayWidth = 24
+      FieldName = 'login'
+    end
+    object mtb_usuariosemail: TStringField
+      DisplayWidth = 71
+      FieldName = 'email'
+    end
+  end
+  object ds_usuarios: TDataSource
+    DataSet = mtb_usuarios
+    Left = 36
+    Top = 261
   end
 end

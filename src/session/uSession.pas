@@ -9,6 +9,7 @@ type
 
   class var Token: string;
   class var User: string;
+  class var Password: string;
 
 end;
 
