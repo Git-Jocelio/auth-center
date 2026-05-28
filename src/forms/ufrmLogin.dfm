@@ -2140,10 +2140,7 @@ object frmLogin: TfrmLogin
         Font.Style = []
         ParentFont = False
         OnClick = btn_acessarClick
-        ExplicitLeft = 176
-        ExplicitTop = 16
-        ExplicitWidth = 23
-        ExplicitHeight = 22
+        ExplicitTop = -3
       end
     end
     object Panel2: TPanel

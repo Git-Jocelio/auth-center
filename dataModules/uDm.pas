@@ -84,7 +84,6 @@ begin
 
   MemTable.EmptyDataSet;
 
-ShowMessage('Bearer ' + TSession.Token);
 
   Resp := TRequest.New
          .BaseURL('http://192.168.100.40:9000')
@@ -94,21 +93,6 @@ ShowMessage('Bearer ' + TSession.Token);
          .Accept('application/json')
          .Adapters(TDataSetSerializeAdapter.New(MemTable))
          .Get;
-////
- ShowMessage(Resp.Content);
- ShowMessage(IntToStr(MemTable.RecordCount));
- if MemTable.RecordCount > 0 then
-begin
-
-  MemTable.First;
-
-  ShowMessage(
-    MemTable.FieldByName('username').AsString
-  );
-
-end;
-
-///
 
   if Resp.Content.trim.isEmpty then
   begin
@@ -121,6 +105,9 @@ procedure TDm.GetUsers(MemTable: TFDMemTable);
 var
   Resp : IResponse;
 begin
+  MemTable.EmptyDataSet;
+
+//ShowMessage('Bearer ' + TSession.Token);
 
   Resp := TRequest.New
          .BaseURL('http://192.168.100.40:9000')
@@ -132,6 +119,20 @@ begin
          .Adapters(TDataSetSerializeAdapter.New(MemTable))
          .Get;
 
+(*
+ ShowMessage(Resp.Content);
+ ShowMessage(IntToStr(MemTable.RecordCount));
+ if MemTable.RecordCount > 0 then
+ begin
+
+   MemTable.First;
+
+   ShowMessage(
+     MemTable.FieldByName('username').AsString
+   );
+
+ end;
+*)
 
   if Resp.Content.trim = '[]' then
   begin
