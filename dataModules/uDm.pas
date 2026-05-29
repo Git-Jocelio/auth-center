@@ -13,6 +13,18 @@ uses
 
 type
   TDm = class(TDataModule)
+    mtb_logs: TFDMemTable;
+    mtb_logstype: TStringField;
+    mtb_logsstatus: TStringField;
+    mtb_logsusername: TStringField;
+    mtb_logsip: TStringField;
+    mtb_logsldap_code: TStringField;
+    mtb_logsldap_message: TStringField;
+    mtb_logsdate: TStringField;
+    mtb_usuarios: TFDMemTable;
+    mtb_usuariosname: TStringField;
+    mtb_usuarioslogin: TStringField;
+    mtb_usuariosemail: TStringField;
   private
     { Private declarations }
   public
